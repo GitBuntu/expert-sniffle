@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>masterapi</name>
+    </assembly>
+    <members>
+        <member name="M:dbapi.Controllers.DatabaseController.GetDatabases">
+            <summary>
+            Get all databases
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:dbapi.Controllers.DatabaseController.GetSchemas(System.String)">
+            <summary>
+            Get all schemas for a given database
+            </summary>
+            <param name="databaseName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:dbapi.Controllers.DatabaseController.GetTables(System.String,System.String)">
+            <summary>
+            Get all tables for a given database and schema
+            </summary>
+            <param name="databaseName"></param>
+            <param name="schemaName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:dbapi.Controllers.DatabaseController.GetColumns(System.String,System.String,System.String)">
+            <summary>
+            Get all columns for a given database, schema and table
+            </summary>
+            <param name="databaseName"></param>
+            <param name="schemaName"></param>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("masterapi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e390e28f6ccce3a3bdccde52d7eb86b1fee7bdc")]
 [assembly: System.Reflection.AssemblyProductAttribute("masterapi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("masterapi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
