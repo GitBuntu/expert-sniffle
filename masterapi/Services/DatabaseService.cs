@@ -39,4 +39,94 @@ public class DatabaseService : IDatabaseService
 
         return databases;
     }
+
+    public async Task<IEnumerable<string>> GetSchemasAsync(string databaseName)
+    {
+        var connectionString = _configuration.GetConnectionString("DefaultConnection")
+            ?? "Server=localhost;User=root;Password=your_password;";
+
+        var schemas = new List<string>();
+
+        using var connection = new MySqlConnection(connectionString);
+        await connection.OpenAsync();
+
+        const string sql = @"
+        SELECT TABLE_SCHEMA 
+        FROM information_schema.TABLES 
+        WHERE TABLE_SCHEMA = @DatabaseName
+        GROUP BY TABLE_SCHEMA";
+
+        using var command = new MySqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@DatabaseName", databaseName);
+
+        using var reader = await command.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            schemas.Add(reader.GetString(0));
+        }
+
+        return schemas;
+    }
+
+    public async Task<IEnumerable<string>> GetTablesAsync(string databaseName, string schemaName)
+    {
+        var connectionString = _configuration.GetConnectionString("DefaultConnection")
+            ?? "Server=localhost;User=root;Password=your_password;";
+
+        var tables = new List<string>();
+
+        using var connection = new MySqlConnection(connectionString);
+        await connection.OpenAsync();
+
+        const string sql = @"
+            SELECT TABLE_NAME 
+            FROM information_schema.TABLES 
+            WHERE TABLE_SCHEMA = @SchemaName
+            AND TABLE_NAME NOT LIKE 'sys_%'
+            AND TABLE_TYPE = 'BASE TABLE'
+            ORDER BY TABLE_NAME";
+
+        using var command = new MySqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@SchemaName", schemaName);
+
+        using var reader = await command.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            tables.Add(reader.GetString(0));
+        }
+
+        return tables;
+    }
+    public async Task<IEnumerable<string>> GetColumnsAsync(string databaseName, string schemaName, string tableName)
+    {
+        var connectionString = _configuration.GetConnectionString("DefaultConnection")
+            ?? "Server=localhost;User=root;Password=your_password;";
+
+        var columns = new List<string>();
+
+        using var connection = new MySqlConnection(connectionString);
+        await connection.OpenAsync();
+
+        const string sql = @"
+            SELECT COLUMN_NAME 
+            FROM information_schema.COLUMNS 
+            WHERE TABLE_SCHEMA = @SchemaName
+            AND TABLE_NAME = @TableName
+            ORDER BY ORDINAL_POSITION";
+
+        using var command = new MySqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@SchemaName", schemaName);
+        command.Parameters.AddWithValue("@TableName", tableName);
+
+        using var reader = await command.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            columns.Add(reader.GetString(0));
+        }
+
+        return columns;
+    }
 }

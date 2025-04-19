@@ -52,3 +52,6 @@ D:\source\AllReact\masterapi\masterapi\bin\Debug\net8.0\runtimes\win-x64\native\
 D:\source\AllReact\masterapi\masterapi\bin\Debug\net8.0\runtimes\win-x64\native\krbcc64.dll
 D:\source\AllReact\masterapi\masterapi\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 D:\source\AllReact\masterapi\masterapi\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
+D:\source\AllReact\masterapi\masterapi\obj\Debug\net8.0\masterapi.sourcelink.json
+D:\source\AllReact\masterapi\masterapi\bin\Debug\net8.0\masterapi.xml
+D:\source\AllReact\masterapi\masterapi\obj\Debug\net8.0\masterapi.xml
