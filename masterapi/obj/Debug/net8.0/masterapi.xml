@@ -34,5 +34,73 @@
             <param name="tableName"></param>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "T:dbapi.Services.DatabaseService" -->
+        <member name="M:dbapi.Services.DatabaseService.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILogger{dbapi.Services.DatabaseService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:dbapi.Services.DatabaseService"/> class.
+            </summary>
+            <param name="configuration">The configuration.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:dbapi.Services.DatabaseService.GetDatabasesAsync">
+            <summary>
+            Retrieves a list of available databases.
+            </summary>
+            <returns>A collection of database names.</returns>
+        </member>
+        <member name="M:dbapi.Services.DatabaseService.GetSchemasAsync(System.String)">
+            <summary>
+            Retrieves a list of schemas for a specified database.
+            </summary>
+            <param name="databaseName">The name of the database.</param>
+            <returns>A collection of schema names.</returns>
+        </member>
+        <member name="M:dbapi.Services.DatabaseService.GetTablesAsync(System.String,System.String)">
+            <summary>
+            Retrieves a list of tables for a specified database and schema.
+            </summary>
+            <param name="databaseName">The name of the database.</param>
+            <param name="schemaName">The name of the schema.</param>
+            <returns>A collection of table names.</returns>
+        </member>
+        <member name="M:dbapi.Services.DatabaseService.GetColumnsAsync(System.String,System.String,System.String)">
+            <summary>
+            Retrieves a list of columns for a specified database, schema, and table.
+            </summary>
+            <param name="databaseName">The name of the database.</param>
+            <param name="schemaName">The name of the schema.</param>
+            <param name="tableName">The name of the table.</param>
+            <returns>A collection of column names.</returns>
+        </member>
+        <member name="M:dbapi.Services.IDatabaseService.GetDatabasesAsync">
+            <summary>
+            Retrieves a list of available databases.
+            </summary>
+            <returns>A collection of database names.</returns>
+        </member>
+        <member name="M:dbapi.Services.IDatabaseService.GetSchemasAsync(System.String)">
+            <summary>
+            Retrieves a list of schemas for a specified database.
+            </summary>
+            <param name="databaseName">The name of the database.</param>
+            <returns>A collection of schema names.</returns>
+        </member>
+        <member name="M:dbapi.Services.IDatabaseService.GetTablesAsync(System.String,System.String)">
+            <summary>
+            Retrieves a list of tables for a specified database and schema.
+            </summary>
+            <param name="databaseName">The name of the database.</param>
+            <param name="schemaName">The name of the schema.</param>
+            <returns>A collection of table names.</returns>
+        </member>
+        <member name="M:dbapi.Services.IDatabaseService.GetColumnsAsync(System.String,System.String,System.String)">
+            <summary>
+            Retrieves a list of columns for a specified database, schema, and table.
+            </summary>
+            <param name="databaseName">The name of the database.</param>
+            <param name="schemaName">The name of the schema.</param>
+            <param name="tableName">The name of the table.</param>
+            <returns>A collection of column names.</returns>
+        </member>
     </members>
 </doc>
