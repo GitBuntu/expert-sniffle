@@ -1,4 +1,3 @@
-// filepath: d:\source\AllReact\masterapi\masterapi\Program.cs
 using System.Reflection;
 using dbapi.Services;
 
@@ -14,6 +13,17 @@ builder.Services.AddSwaggerGen(options =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     options.IncludeXmlComments(xmlPath);
 });
+
+// Add CORS service
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        policy => policy
+            .WithOrigins("http://localhost:5173") // Your React app URL
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
 builder.Services.AddScoped<IDatabaseService, DatabaseService>();
 
 var app = builder.Build();
@@ -23,6 +33,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Use CORS middleware - place this before other middleware
+app.UseCors("AllowReactApp");
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

@@ -4,7 +4,6 @@ using dbapi.Services;
 namespace dbapi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
 public class DatabaseController : ControllerBase
 {
     private readonly ILogger<DatabaseController> _logger;
@@ -21,6 +20,7 @@ public class DatabaseController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [Route("databases")]
     public async Task<IActionResult> GetDatabases()
     {
         try
@@ -40,7 +40,8 @@ public class DatabaseController : ControllerBase
     /// </summary>
     /// <param name="databaseName"></param>
     /// <returns></returns>
-    [HttpGet("{databaseName}")]
+    [HttpGet]
+    [Route("databases/{databaseName}/schemas")]
     public async Task<IActionResult> GetSchemas(string databaseName)
     {
         try
@@ -61,7 +62,8 @@ public class DatabaseController : ControllerBase
     /// <param name="databaseName"></param>
     /// <param name="schemaName"></param>
     /// <returns></returns>
-    [HttpGet("{databaseName}/{schemaName}")]
+    [HttpGet]
+    [Route("databases/{databaseName}/schemas/{schemaName}/tables")]
     public async Task<IActionResult> GetTables(string databaseName, string schemaName)
     {
         try
@@ -83,7 +85,8 @@ public class DatabaseController : ControllerBase
     /// <param name="schemaName"></param>
     /// <param name="tableName"></param>
     /// <returns></returns>
-    [HttpGet("{databaseName}/{schemaName}/{tableName}")]
+    [HttpGet]
+    [Route("databases/{databaseName}/schemas/{schemaName}/tables/{tableName}/columns")]
     public async Task<IActionResult> GetColumns(string databaseName, string schemaName, string tableName)
     {
         try
