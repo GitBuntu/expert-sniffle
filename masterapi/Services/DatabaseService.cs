@@ -1,18 +1,28 @@
 using MySql.Data.MySqlClient;
 
 namespace dbapi.Services;
-
+/// <summary>
+/// Service for interacting with the database.
+/// /summary>
 public class DatabaseService : IDatabaseService
 {
     private readonly IConfiguration _configuration;
     private readonly ILogger<DatabaseService> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DatabaseService"/> class.
+    /// </summary>
+    /// <param name="configuration">The configuration.</param>
+    /// <param name="logger">The logger.</param>
     public DatabaseService(IConfiguration configuration, ILogger<DatabaseService> logger)
     {
         _configuration = configuration;
         _logger = logger;
     }
-
+    /// <summary>
+    /// Retrieves a list of available databases.
+    /// </summary>
+    /// <returns>A collection of database names.</returns>
     public async Task<IEnumerable<string>> GetDatabasesAsync()
     {
         var connectionString = _configuration.GetConnectionString("DefaultConnection")
@@ -39,7 +49,11 @@ public class DatabaseService : IDatabaseService
 
         return databases;
     }
-
+    /// <summary>
+    /// Retrieves a list of schemas for a specified database.
+    /// </summary>
+    /// <param name="databaseName">The name of the database.</param>
+    /// <returns>A collection of schema names.</returns>
     public async Task<IEnumerable<string>> GetSchemasAsync(string databaseName)
     {
         var connectionString = _configuration.GetConnectionString("DefaultConnection")
@@ -68,7 +82,12 @@ public class DatabaseService : IDatabaseService
 
         return schemas;
     }
-
+    /// <summary>
+    /// Retrieves a list of tables for a specified database and schema.
+    /// </summary>
+    /// <param name="databaseName">The name of the database.</param>
+    /// <param name="schemaName">The name of the schema.</param>
+    /// <returns>A collection of table names.</returns>
     public async Task<IEnumerable<string>> GetTablesAsync(string databaseName, string schemaName)
     {
         var connectionString = _configuration.GetConnectionString("DefaultConnection")
@@ -99,6 +118,13 @@ public class DatabaseService : IDatabaseService
 
         return tables;
     }
+    /// <summary>
+    /// Retrieves a list of columns for a specified database, schema, and table.
+    /// </summary>
+    /// <param name="databaseName">The name of the database.</param>
+    /// <param name="schemaName">The name of the schema.</param>
+    /// <param name="tableName">The name of the table.</param>
+    /// <returns>A collection of column names.</returns>
     public async Task<IEnumerable<string>> GetColumnsAsync(string databaseName, string schemaName, string tableName)
     {
         var connectionString = _configuration.GetConnectionString("DefaultConnection")
