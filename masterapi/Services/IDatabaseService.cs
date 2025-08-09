@@ -1,5 +1,8 @@
 namespace dbapi.Services;
 
+/// <summary>
+/// Interface for database service operations.
+/// </summary>
 public interface IDatabaseService
 {
     /// <summary>
@@ -28,4 +31,12 @@ public interface IDatabaseService
     /// <param name="tableName">The name of the table.</param>
     /// <returns>A collection of column names.</returns>
     Task<IEnumerable<string>> GetColumnsAsync(string databaseName, string schemaName, string tableName);
+    /// <summary>
+    /// Retrieves a preview (first row) from the specified table.
+    /// </summary>
+    /// <param name="databaseName">The name of the database.</param>
+    /// <param name="schemaName">The name of the schema.</param>
+    /// <param name="tableName">The name of the table.</param>
+    /// <returns>A dictionary containing column names and their values.</returns>
+    Task<IDictionary<string, object>> GetTablePreviewAsync(string databaseName, string schemaName, string tableName);
 }

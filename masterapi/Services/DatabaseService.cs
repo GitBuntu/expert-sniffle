@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 namespace dbapi.Services;
 /// <summary>
 /// Service for interacting with the database.
-/// /summary>
+/// </summary>
 public class DatabaseService : IDatabaseService
 {
     private readonly IConfiguration _configuration;
@@ -154,5 +154,39 @@ public class DatabaseService : IDatabaseService
         }
 
         return columns;
+    }
+    /// <summary>
+    /// Retrieves a preview (first row) from the specified table.   
+    /// </summary>
+    /// <param name="databaseName">The name of the database.</param>
+    /// <param name="schemaName">The name of the schema.</param>
+    /// <param name="tableName">The name of the table.</param>
+    /// <returns>A dictionary containing column names and their values.</returns>
+    public async Task<IDictionary<string, object>> GetTablePreviewAsync(string databaseName, string schemaName, string tableName)
+    {
+        var connectionString = _configuration.GetConnectionString("DefaultConnection")
+            ?? "Server=localhost;User=root;Password=your_password;";
+
+        var preview = new Dictionary<string, object>();
+
+        using var connection = new MySqlConnection(connectionString);
+        await connection.OpenAsync();
+
+        var sql = $"SELECT * FROM {databaseName}.{tableName} LIMIT 1";
+
+        using var command = new MySqlCommand(sql, connection);
+        using var reader = await command.ExecuteReaderAsync();
+
+        if (await reader.ReadAsync())
+        {
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                var columnName = reader.GetName(i);
+                var value = reader.IsDBNull(i) ? null : reader.GetValue(i);
+                preview[columnName] = value;
+            }
+        }
+
+        return preview;
     }
 }

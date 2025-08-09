@@ -4,6 +4,16 @@
         <name>masterapi</name>
     </assembly>
     <members>
+        <member name="T:dbapi.Controllers.DatabaseController">
+            <summary>
+            Controller for managing database operations.
+            </summary>
+        </member>
+        <member name="M:dbapi.Controllers.DatabaseController.#ctor(Microsoft.Extensions.Logging.ILogger{dbapi.Controllers.DatabaseController},dbapi.Services.IDatabaseService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:dbapi.Controllers.DatabaseController"/> class.
+            </summary>
+        </member>
         <member name="M:dbapi.Controllers.DatabaseController.GetDatabases">
             <summary>
             Get all databases
@@ -34,7 +44,20 @@
             <param name="tableName"></param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:dbapi.Services.DatabaseService" -->
+        <member name="M:dbapi.Controllers.DatabaseController.GetTablePreview(System.String,System.String,System.String)">
+            <summary>
+            Get a preview (first row) from a specific table
+            </summary>
+            <param name="databaseName">The name of the database</param>
+            <param name="schemaName">The name of the schema</param>
+            <param name="tableName">The name of the table</param>
+            <returns>A dictionary of column names and their values</returns>
+        </member>
+        <member name="T:dbapi.Services.DatabaseService">
+            <summary>
+            Service for interacting with the database.
+            </summary>
+        </member>
         <member name="M:dbapi.Services.DatabaseService.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILogger{dbapi.Services.DatabaseService})">
             <summary>
             Initializes a new instance of the <see cref="T:dbapi.Services.DatabaseService"/> class.
@@ -72,6 +95,20 @@
             <param name="tableName">The name of the table.</param>
             <returns>A collection of column names.</returns>
         </member>
+        <member name="M:dbapi.Services.DatabaseService.GetTablePreviewAsync(System.String,System.String,System.String)">
+            <summary>
+            Retrieves a preview (first row) from the specified table.   
+            </summary>
+            <param name="databaseName">The name of the database.</param>
+            <param name="schemaName">The name of the schema.</param>
+            <param name="tableName">The name of the table.</param>
+            <returns>A dictionary containing column names and their values.</returns>
+        </member>
+        <member name="T:dbapi.Services.IDatabaseService">
+            <summary>
+            Interface for database service operations.
+            </summary>
+        </member>
         <member name="M:dbapi.Services.IDatabaseService.GetDatabasesAsync">
             <summary>
             Retrieves a list of available databases.
@@ -101,6 +138,15 @@
             <param name="schemaName">The name of the schema.</param>
             <param name="tableName">The name of the table.</param>
             <returns>A collection of column names.</returns>
+        </member>
+        <member name="M:dbapi.Services.IDatabaseService.GetTablePreviewAsync(System.String,System.String,System.String)">
+            <summary>
+            Retrieves a preview (first row) from the specified table.
+            </summary>
+            <param name="databaseName">The name of the database.</param>
+            <param name="schemaName">The name of the schema.</param>
+            <param name="tableName">The name of the table.</param>
+            <returns>A dictionary containing column names and their values.</returns>
         </member>
     </members>
 </doc>

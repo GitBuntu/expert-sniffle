@@ -3,12 +3,19 @@ using dbapi.Services;
 
 namespace dbapi.Controllers;
 
+/// <summary>
+/// Controller for managing database operations.
+/// </summary>
+[Route("api/[controller]")]
 [ApiController]
 public class DatabaseController : ControllerBase
 {
     private readonly ILogger<DatabaseController> _logger;
     private readonly IDatabaseService _databaseService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DatabaseController"/> class.
+    /// </summary>
     public DatabaseController(ILogger<DatabaseController> logger, IDatabaseService databaseService)
     {
         _logger = logger;
@@ -98,6 +105,29 @@ public class DatabaseController : ControllerBase
         {
             _logger.LogError(ex, "Error getting columns for database {DatabaseName}, schema {SchemaName} and table {TableName}", databaseName, schemaName, tableName);
             return StatusCode(500, "Internal server error");
+        }
+    }
+    /// <summary>
+    /// Get a preview (first row) from a specific table
+    /// </summary>
+    /// <param name="databaseName">The name of the database</param>
+    /// <param name="schemaName">The name of the schema</param>
+    /// <param name="tableName">The name of the table</param>
+    /// <returns>A dictionary of column names and their values</returns>
+    [HttpGet]
+    [Route("databases/{databaseName}/schemas/{schemaName}/tables/{tableName}/preview")]
+    public async Task<IActionResult> GetTablePreview(string databaseName, string schemaName, string tableName)
+    {
+        try
+        {
+            var preview = await _databaseService.GetTablePreviewAsync(databaseName, schemaName, tableName);
+            return Ok(preview);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting preview for table {TableName} in database {DatabaseName}, schema {SchemaName}",
+                tableName, databaseName, schemaName);
+            return Problem("An error occurred while processing your request.");
         }
     }
 }
